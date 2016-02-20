@@ -1,0 +1,93 @@
+.TH ripright "1" "2015-12-08" "riparrange-0.11" "User Commands"
+.SH NAME
+riparrange \- FLAC file organiser
+.SH SYNOPSIS
+
+.B riparrange  [-m|-c|-h] [-f] [-v] [-w] [-o format] <file.flac>
+
+.SH DESCRIPTION
+RipArrange is a tool for automatically moving flac files to a directory
+structure based upon Vorbis Comment tags.  A format string is used to
+define how the comment tags are mapped into a filename and path.
+
+The default operation is to just print what would be changed if the tool
+were to be ran with -m, -c or -h specified.
+
+.SH OPTIONS
+.TP
+\fB\-m\fP
+Move/rename files to new location.  This only works within a mount.
+.TP
+\fB-c\fP
+Copy files to new location.
+.TP
+\fB-h\fP
+Hard link files to new location.  This only works within a filesystem.
+.TP
+\fB-f\fP
+Remove existing destination files before operation.
+.TP
+\fB-w\fP, \fB--w32-filenames\fP
+Covert characters that are illegal on Windows filesystems to UTF-8 alternatives.
+If accessing files over Samba, this prevents name mangling which can lose the
+file extension.  Mapped characters are \fB*\fP, \fB?\fP, \fB"\fP and \fB|\fP
+which are replaced by \fBӿ\fP, \fBʔ\fP, \fB¨\fP and \fBǀ\fP respectively.
+.TP
+\fB\-v\fP, \fB\-\-verbose\fP
+Output information about files which will not be moved because they are
+already in the correct location.  Normally only things that would be
+changed are reported.
+.TP
+\fB\-o\fP, \fB\-\-output-file\fP \fIformat\fP
+Set the format used to produce output filenames and paths.  This
+should be a string containing the following special tokens:
+
+ %N = Track number (TRACKNUMBER)
+ %A = Track artist (ARTIST)
+ %a = Track artist sort name (ARTISTSORT)
+ %B = Album artist (ALBUMARTIST)
+ %b = Album artist sort name (ALBUMARTISTSORT)
+ %C = Track artist if present, else album artist
+ %c = Track artist sort name if present, else album artist sort name
+ %D = Album/CD name (ALBUM)
+ %T = Track name (TITLE)
+ %Y = Release type (MUSICBRAINZ_TYPE)
+ %% = A single percent sign
+
+The release type is one of Albums, Audiobooks, Compilations, EPs,
+Interviews, Live, Remixes, Singles, Soundtracks, Spokenword and Other.
+
+Slashes and colons in the '%' output fields are converted to UTF-8
+equivalents to avoid creating subdirectories or causing problems
+with Windows shares mounted via Samba.  Slashes and colons given in
+the format string will be literally preserved.
+
+.SH EXAMPLE
+
+The following command will re-arrange FLAC files found in the current directory,
+making a new directory structure under \fI/media/newmusic\fP containing hard
+links to the current files:
+
+  riparrange -h -f "/media/newmusic/%Y/%B - %D/%N-%T.flac" *.flac
+
+\fBFind\fP and \fBxargs\fP can be used to call riparrange for files in different directories:
+
+  find /media/music/ -name "*.flac" -print0 |
+    xargs -0 riparrange -h -f "/media/newmusic/%Y/%B - %D/%N-%T.flac" *.flac
+
+
+.SH COPYRIGHT
+
+RipArrange, Copyright (C) 2013-2015 Michael C McTernan,
+                                    mike@mcternan.uk
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later version.
+
+.SH "SEE ALSO"
+ripright(1)
+
+http://www.mcternan.co.uk/ripright/
+.br
+http://wiki.musicbrainz.org/MusicBrainz_Tag

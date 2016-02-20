@@ -1,0 +1,51 @@
+* Sat Feb 14 2015 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk.> 0.11
+- Fix error when ripping to all (-a) and requiring cover art (-a).  In such a case only the first cover art would be retrieved, and only the first returned result would therefore be ripped.
+- Update copyright and contact email address.
+
+* Sat Nov 29 2014 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk.> 0.10
+- Fix compiler warning in ripCallback(). (Thanks to David Binderman for the report).
+
+* Mon Dec 30 2013 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk.> 0.9
+- Fix crash when ripping with --folder-art and --rip-to-all and only some of the results have cover art.  (Thanks to Jørgen Austvik for the patch)
+- Fix crash when Musicbrainz doesn't have a release type or release group id for some CD. (Thanks to Jørgen Austvik for patch)
+
+* Mon Oct 21 2013 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.8
+- Fix missing header in enc.c preventing compilation on at least Ubuntu 13.10.
+- Remove use of alloca() and replace with calloc/free to avoid corruption seen on Ubuntu 13.10.
+- Print the CDROM device which is being monitored for a CD.
+
+* Fri May 3 2013 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.7
+- Add -f option to save cover art to a file in each folder.
+
+* Sun Feb 3 2013 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.6
+- Fix eject ignoring -c option.
+- Apply patches from David Gravereaux to fix further bugs in multi-drive
+setups.
+
+* Wed Jan 16 2013 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.5
+- Fix logging reusing va_arg list which can cause ripright to crash on some
+systems.
+- Fix a printf() format string.
+
+* Sat Oct 8 2011 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.4
+- Check the CDROM drive can be opened for reading and exit with a warning if
+there is a problem.
+- Fix manpage headings.
+- Add -c option to allow a different CDROM device to be used.
+- Check for cdda/cdda_interface.h or cdda_interface in the configure script
+to allow building on Ubuntu as well as Fedora.
+
+* Sun Jul 10 2011 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.3
+- Replace libmusicbrainz3 with direct XML parser and query to the MusicBrainz
+webservices.  This is because after the Next Generation Schema changes,
+MusicBrainz no longer returns the required results and needs additional
+querying, filtering and merging of results to get the required info.
+- Add rip-to-all option which encodes to each potential result.
+
+* Sat May 14 2011 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.2
+- Add -w option.
+- Add test that FLAC is lossless.
+
+* Sat May 7 2011 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk> 0.1
+- Initial version.
+
