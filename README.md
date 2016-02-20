@@ -5,8 +5,8 @@
 
 With RipRight, ripping a CD collection is just a matter of feeding your Linux PC each CD in turn and waiting while they are ripped. CDs which are immediately ejected can be checked with the MusicBrainz Picard tool which allows CD identifiers to be uploaded to the website database. Any errors or inaccuracies in the database records can also be edited on the MusicBrainz website.
 
--- from the orignal creator's website http://www.mcternan.me.uk/ripright
+-- from the original creator's website http://www.mcternan.me.uk/ripright
 
 
 Ripright is written by Michael McTernan and slightly improved by me.
-RipRight are released under the GNU GPLv2. 
+RipRight is released under the GNU GPLv2. 

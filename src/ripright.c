@@ -107,6 +107,9 @@ static char *gFilenameFormat = "%Y/%B - %D/%N-%T.flac";
 /** If set, allow skipping of bad sectors when ripping. */
 bool gRipAllowSkip = false;
 
+/** execute external script after completion */
+static char *gExecAfterComplPath = "";
+
 /** The CD-ROM device used for reading. */
 const char *gCdromDevice = "/dev/cdrom";
 
@@ -142,6 +145,16 @@ static int doRip(void)
     mbresult_t      mbresult;
     bbuf_t          encTaskBBuf;
 
+    // track logging
+    bool    logTracks = false;
+    char    trackLogName[42]; // sufficient, since musicbrainz disc-ids are 28 chars long
+
+    /* check if we must log the tracks to a log file */
+    if (strlen(gExecAfterComplPath) > 0) {
+        logTracks = true;
+        LogInf("Tracklog enabled\n")
+    }
+
 	/* Ensure we have a structure */
     if(disc == NULL)
     {
@@ -170,6 +183,14 @@ static int doRip(void)
     const char *discId = discid_get_id(disc);
 
     LogInf("Got disk Id %s\n", discId);
+
+    /* set tracklog filename */
+    int res;
+    res = snprintf(trackLogName, 42, "./%s.tracklog", discId)
+    if(res < 0 || res > 42) {
+        LogErr("trackLogName could not be set. Call snprintf returned %d.\n", res);
+        return EXIT_FAILURE;
+    }
 
     if(!MbLookup(discId, &mbresult))
     {
@@ -216,6 +237,17 @@ static int doRip(void)
         uint64_t totalSamples;
         uint16_t cdTrack, cdTrackCount;
 
+        FILE *trackLogfp;
+
+        /* if needed, open tracklog */
+        if (logTracks) {
+            trackLogfp = fopen(trackLogName, 'w');
+            if (trackLogfp == NULL) {
+                LogErr("Could not open %s!\n", trackLogName);
+                return EXIT_FAILURE;
+            }
+        }
+
         /* Create the ripper and get the count of tracks on the CD */
         ripper = RipNew(gCdromDevice);
         cdTrackCount = RipGetTrackCount(ripper);
@@ -229,7 +261,7 @@ static int doRip(void)
             out = fdopen(mkstemp(tempFile), "wb");
             if(out == NULL)
             {
-                LogErr("Error: Failed to open temporary file: %m\n");
+                LogErr("Error: Failed to open temporary file: %s\n", tempFile);
                 exit(EXIT_FAILURE);
             }
 
@@ -412,6 +444,17 @@ static int doRip(void)
                                             track->trackName,
                                             albumType);
 
+                    /* log fileName to tracklog */
+                    if (logTracks) {
+                        int res = -1;
+                        res = fprintf(trackLogfp, "%s\n", fileName);
+                        if (res < 0) {
+                            LogWarn("Could not print to tracklog!\n");
+                        } else {
+                            LogInf("tracklog new entry: %s\n", fileName)
+                        }
+                    }
+
                     EncTaskSetOutputFilename(etask, fileName);
 
 
@@ -464,6 +507,11 @@ static int doRip(void)
         }
 
         RipFree(ripper);
+
+        /* close tracklog */
+        if (logTracks) {
+            fclose(trackLogfp);
+        }
     }
 
     /* Free any art */
@@ -496,6 +544,18 @@ static int doRip(void)
     }
 
     BBufWaitUntilEmpty(encTaskBBuf);
+
+    /* call external script desired */
+    if (logTracks) {
+        char execcmd[1024];
+        int n;
+        n = snprintf(execcmd, 1024, "%s %s > ./out.log", gExecAfterComplPath, trackLogName);
+        if (n < 0 || n > 1024) {
+            LogErr("Could not execute user-defined command. Note that a maximum of 1024 chars in the command are supported!\n")
+        }
+        n = system(execcmd);
+        LogInf("User-defined script returned %d.\n", n);
+    }
 
     return EXIT_SUCCESS;
 }
@@ -571,6 +631,22 @@ static void usage(void)
            "     with Windows shares mounted via Samba.  Slashes and colons given in\n"
            "     the format string will be literally preserved.\n"
            "\n"
+           "  -e, --exec-after\n"
+           "     After conversion completed, execute the given command in a system\n"
+           "     shell and pass the path of a log file as first argument and log the\n"
+           "     output to out.log. All files are created in the directory where\n"
+           "     ripright was started from.\n"
+           "\n"
+           "     Example:\n"
+           "       -e \"python3 email_owner.py\"\n"
+           "     calls\n"
+           "       python3 email_owner.py <discid>.tracklog > out.log\n"
+           "     where <discid>.tracklog contains paths to each converted track.\n"
+           "\n"
+           "     To see an example of <discid>.tracklog, run\n"
+           "       -e cat\n"
+           "     and investigate out.log.\n"
+           "\n"           
            "  outpath\n"
            "     If supplied, write ripped CDs to this directory.\n"
            "\n"
@@ -635,6 +711,13 @@ int main(int argc, char *argv[])
                 argc > 2)
         {
             gFilenameFormat = argv[2];
+            argc -= 2;
+            argv += 2;
+        }
+        else if((strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "--exec-after") == 0) &&
+                argc > 2)
+        {
+            gExecAfterComplPath = argv[2];
             argc -= 2;
             argv += 2;
         }
