@@ -6,6 +6,7 @@ AC_INIT(ripright, 0.12, mail@mebg.ch)
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
+AM_MAINTAINER_MODE([disable])
 
 # Checks for programs.
 AC_PROG_CC
