@@ -1,7 +1,3 @@
-#
-# $Id: Makefile.am 134 2010-09-07 18:54:17Z Michael.McTernan $
-#
-
 dist_man_MANS = ripright.1 riparrange.1
 
 .SUFFIXES= .1 .1in

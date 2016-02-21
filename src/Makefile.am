@@ -1,8 +1,8 @@
-#
-# $Id: Makefile.am 209 2011-07-11 19:26:56Z mmcternan $
-#
-
 bin_PROGRAMS = ripright riparrange
+
+
+## ripright
+
 ripright_SOURCES = \
 art.c   eject.c  encodetask.c  log.c         rip.c       curlfetch.c \
 art.h   eject.h  encodetask.h  log.h         rip.h       curlfetch.h \
@@ -15,6 +15,8 @@ ripright_CFLAGS = -Wall -Wextra -std=gnu99 -O2 $(flac_CFLAGS) $(MagickWand_CFLAG
 ripright_LDADD = $(flac_LIBS) $(MagickWand_LIBS) $(libcurl_LIBS) $(libdiscid_LIBS) -lpthread
 
 
+## riparrange
+
 riparrange_SOURCES = \
 riparrange.c \
 format.c  x_mem.c \
@@ -22,5 +24,3 @@ format.h  x_mem.h
 
 riparrange_CFLAGS = -Wall -Wextra -std=gnu99 -O2 $(flac_CFLAGS)
 riparrange_LDADD = $(flac_LIBS)
-
-# END OF FILE

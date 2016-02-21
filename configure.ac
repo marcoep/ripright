@@ -1,13 +1,14 @@
-AC_PREREQ([2.65])
-AC_INIT([ripright],[0.12],[mail@mebg.ch])
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.69])
+AC_INIT(ripright, 0.12, mail@mebg.ch)
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES(yes)])
 
 # Checks for programs.
 AC_PROG_CC
-AM_PROG_CC_C_O
 AC_PROG_SED
 PKG_PROG_PKG_CONFIG
 
@@ -31,7 +32,7 @@ AC_CHECK_HEADERS([cdda_interface.h],,
 AC_CHECK_HEADERS([fcntl.h inttypes.h stdint.h stdlib.h string.h sys/ioctl.h sys/time.h syslog.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
+AC_CHECK_HEADER_STDBOOL
 AC_TYPE_INT16_T
 AC_TYPE_INT32_T
 AC_TYPE_PID_T
@@ -45,7 +46,7 @@ AC_TYPE_UINT8_T
 AC_FUNC_FORK
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
-AC_CHECK_FUNCS([gettimeofday memmove memset mkdir strdup strstr])
+AC_CHECK_FUNCS([gettimeofday memmove memset mkdir strchr strdup strerror strncasecmp strstr])
 
 AC_CONFIG_FILES([Makefile
                  man/Makefile
