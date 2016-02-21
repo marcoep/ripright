@@ -3,7 +3,7 @@
 #
 
 AC_PREREQ([2.65])
-AC_INIT([ripright],[0.11],[mike@mcternan.uk])
+AC_INIT([ripright],[0.12],[mail@mebg.ch])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
