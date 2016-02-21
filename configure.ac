@@ -1,7 +1,3 @@
-#
-# $Id: configure.ac 327 2015-12-08 10:25:53Z mmcternan $
-#
-
 AC_PREREQ([2.65])
 AC_INIT([ripright],[0.12],[mail@mebg.ch])
 AM_INIT_AUTOMAKE
@@ -54,5 +50,5 @@ AC_CHECK_FUNCS([gettimeofday memmove memset mkdir strdup strstr])
 AC_CONFIG_FILES([Makefile
                  man/Makefile
                  src/Makefile
-		 test/Makefile])
+                 test/Makefile])
 AC_OUTPUT

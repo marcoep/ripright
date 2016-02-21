@@ -1,3 +1,6 @@
+* Sat Feb 21 2016 Marco Eppenberger <mail@mebg.ch> 0.12
+- Added the option to call an extrenal script after ripping.
+
 * Sat Feb 14 2015 Michael McTernan <Michael.McTernan.2001@cs.bris.ac.uk.> 0.11
 - Fix error when ripping to all (-a) and requiring cover art (-a).  In such a case only the first cover art would be retrieved, and only the first returned result would therefore be ripped.
 - Update copyright and contact email address.

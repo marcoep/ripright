@@ -152,7 +152,7 @@ static int doRip(void)
     /* check if we must log the tracks to a log file */
     if (strlen(gExecAfterComplPath) > 0) {
         logTracks = true;
-        LogInf("Tracklog enabled\n")
+        LogInf("Tracklog enabled\n");
     }
 
 	/* Ensure we have a structure */
@@ -186,7 +186,7 @@ static int doRip(void)
 
     /* set tracklog filename */
     int res;
-    res = snprintf(trackLogName, 42, "./%s.tracklog", discId)
+    res = snprintf(trackLogName, 42, "./%s.tracklog", discId);
     if(res < 0 || res > 42) {
         LogErr("trackLogName could not be set. Call snprintf returned %d.\n", res);
         return EXIT_FAILURE;
@@ -237,11 +237,11 @@ static int doRip(void)
         uint64_t totalSamples;
         uint16_t cdTrack, cdTrackCount;
 
-        FILE *trackLogfp;
+        FILE *trackLogfp = NULL;
 
         /* if needed, open tracklog */
         if (logTracks) {
-            trackLogfp = fopen(trackLogName, 'w');
+            trackLogfp = fopen(trackLogName, "w");
             if (trackLogfp == NULL) {
                 LogErr("Could not open %s!\n", trackLogName);
                 return EXIT_FAILURE;
@@ -451,7 +451,7 @@ static int doRip(void)
                         if (res < 0) {
                             LogWarn("Could not print to tracklog!\n");
                         } else {
-                            LogInf("tracklog new entry: %s\n", fileName)
+                            LogInf("tracklog new entry: %s\n", fileName);
                         }
                     }
 
@@ -551,7 +551,7 @@ static int doRip(void)
         int n;
         n = snprintf(execcmd, 1024, "%s %s > ./out.log", gExecAfterComplPath, trackLogName);
         if (n < 0 || n > 1024) {
-            LogErr("Could not execute user-defined command. Note that a maximum of 1024 chars in the command are supported!\n")
+            LogErr("Could not execute user-defined command. Note that a maximum of 1024 chars in the command are supported!\n");
         }
         n = system(execcmd);
         LogInf("User-defined script returned %d.\n", n);
@@ -563,7 +563,7 @@ static int doRip(void)
 
 static void usage(void)
 {
-    printf("Usage: ripright [-d] [-a] [-r] [-s] [-c device] [-o format] [outpath]\n"
+    printf("Usage: ripright [-d] [-a] [-r] [-s] [-e exec-script] [-c device] [-o format] [outpath]\n"
            "\n"
            "Where:\n"
            "  -d, --daemon\n"

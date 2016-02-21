@@ -1,5 +1,4 @@
 # ripright
-"RipRight is a minimal CD ripper for Linux modeled on autorip." - http://www.mcternan.me.uk/ripright/
 
  RipRight is a minimal CD ripper for Linux modeled on autorip. It can run as a daemon and will automatically start ripping any CD found in the drive after which the disc will be ejected. Ripping is always to FLAC lossless audio format with tags taken from the community-maintained MusicBrainz lookup service and cover art from Amazon where possible. If a disc is unknown to MusicBrainz, the CD will be ejected without ripping and can also be optionally rejected if cover art cannot be found.
 

@@ -79,13 +79,27 @@ Slashes and colons in the '%' output fields are converted to UTF-8
 equivalents to avoid creating subdirectories or causing problems
 with Windows shares mounted via Samba.  Slashes and colons given in
 the format string will be literally preserved.
+.TP
+\fB\-e\fP, \fB\-\-exec\-after\fP
+After conversion completed, execute the given command in a system\n"
+shell and pass the path of a log file as first argument and log the\n"
+output to out.log. All files are created in the directory where\n"
+ripright was started from.\n"
+
+Example:\n"
+  -e \"python3 email_owner.py\"\n"
+calls\n"
+  python3 email_owner.py <discid>.tracklog > out.log\n"
+where <discid>.tracklog contains paths to each converted track.\n"
+
+To see an example of <discid>.tracklog, run\n"
+  -e cat\n"
+and investigate out.log.\n"
 
 .SH COPYRIGHT
-RipRight, Copyright (C) 2013-2015 Michael C McTernan,
-                                  mike@mcternan.uk
+RipRight, Copyright (C) 2013-2015 Michael C McTernan, mike@mcternan.uk
 .br
-Eject routines, Copyright (c) 1994-2005 Jeff Tranter
-                                        tranter@pobox.com
+Eject routines, Copyright (c) 1994-2005 Jeff Tranter, tranter@pobox.com
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
