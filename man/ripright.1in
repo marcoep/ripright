@@ -81,20 +81,20 @@ with Windows shares mounted via Samba.  Slashes and colons given in
 the format string will be literally preserved.
 .TP
 \fB\-e\fP, \fB\-\-exec\-after\fP
-After conversion completed, execute the given command in a system\n"
-shell and pass the path of a log file as first argument and log the\n"
-output to out.log. All files are created in the directory where\n"
-ripright was started from.\n"
+After conversion completed, execute the given command in a system
+shell and pass the path of a log file as first argument and log the
+output to out.log. All files are created in the directory where
+ripright was started from.
 
-Example:\n"
-  -e \"python3 email_owner.py\"\n"
-calls\n"
-  python3 email_owner.py <discid>.tracklog > out.log\n"
-where <discid>.tracklog contains paths to each converted track.\n"
+Example:
+  -e \"python3 email_owner.py\"
+calls
+  python3 email_owner.py <discid>.tracklog > out.log
+where <discid>.tracklog contains paths to each converted track.
 
-To see an example of <discid>.tracklog, run\n"
-  -e cat\n"
-and investigate out.log.\n"
+To see an example of <discid>.tracklog, run
+  -e cat
+and investigate out.log.
 
 .SH COPYRIGHT
 RipRight, Copyright (C) 2013-2015 Michael C McTernan, mike@mcternan.uk
