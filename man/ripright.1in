@@ -87,9 +87,13 @@ output to out.log. All files are created in the directory where
 ripright was started from.
 
 Example:
-  -e \"python3 email_owner.py\"
+  .br
+  -e "python3 email_owner.py"
+  .br
 calls
-  python3 email_owner.py <discid>.tracklog > out.log
+  .br
+  python3 email_owner.py <discid>.tracklog >> out.log
+  .br
 where <discid>.tracklog contains paths to each converted track.
 
 To see an example of <discid>.tracklog, run
@@ -99,7 +103,9 @@ and investigate out.log.
 .SH COPYRIGHT
 RipRight, Copyright (C) 2013-2015 Michael C McTernan, mike@mcternan.uk
 .br
-Eject routines, Copyright (c) 1994-2005 Jeff Tranter, tranter@pobox.com
+Eject routines, Copyright (C) 1994-2005 Jeff Tranter, tranter@pobox.com
+.br
+external script functionality, Copyright (C) 2016 Marco Eppenberger, mail@mebg.ch
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -108,6 +114,8 @@ Foundation; either version 2 of the License, or (at your option) any later versi
 .SH "SEE ALSO"
 riparrange(1)
 
+https://github.com/marcoep/ripright
+.br
 http://www.mcternan.co.uk/ripright/
 .br
 http://www.musicbrainz.org/

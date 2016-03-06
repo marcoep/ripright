@@ -549,7 +549,7 @@ static int doRip(void)
     if (logTracks) {
         char execcmd[1024];
         int n;
-        n = snprintf(execcmd, 1024, "%s %s > ./out.log", gExecAfterComplPath, trackLogName);
+        n = snprintf(execcmd, 1024, "%s %s >> ./out.log", gExecAfterComplPath, trackLogName);
         if (n < 0 || n > 1024) {
             LogErr("Could not execute user-defined command. Note that a maximum of 1024 chars in the command are supported!\n");
         }
@@ -640,10 +640,10 @@ static void usage(void)
            "     Example:\n"
            "       -e \"python3 email_owner.py\"\n"
            "     calls\n"
-           "       python3 email_owner.py <discid>.tracklog > out.log\n"
+           "       python3 email_owner.py <discid>.tracklog >> out.log\n"
            "     where <discid>.tracklog contains paths to each converted track.\n"
            "\n"
-           "     To see an example of <discid>.tracklog, run\n"
+           "     To see an example of <discid>.tracklog, run ripright with the argument\n"
            "       -e cat\n"
            "     and investigate out.log.\n"
            "\n"           
