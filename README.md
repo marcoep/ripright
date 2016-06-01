@@ -17,11 +17,13 @@ RipRight is released under the GNU GPLv2.
 
 Install the following apt packages:
 * libflac-dev
-* libmagick-dev
+* libmagic-dev
 * libmagickwand-dev
 * libcurl4-gnutls-dev
 * libdiscid0-dev
 * libcdparanoia-dev
+
+    sudo apt-get install libflac-dev libmagic-dev libmagickwand-dev libcurl4-gnutls-dev libdiscid0-dev libcdparanoia-dev
 
 Run the following commands:
 
