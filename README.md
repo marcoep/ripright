@@ -23,7 +23,8 @@ Install the following apt packages:
 * libdiscid0-dev
 * libcdparanoia-dev
 
-    sudo apt-get install libflac-dev libmagic-dev libmagickwand-dev libcurl4-gnutls-dev libdiscid0-dev libcdparanoia-dev
+Paste the following into your terminal to do so:
+`sudo apt-get install libflac-dev libmagic-dev libmagickwand-dev libcurl4-gnutls-dev libdiscid0-dev libcdparanoia-dev`
 
 Run the following commands:
 
