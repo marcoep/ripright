@@ -213,6 +213,15 @@ static int doRip(void)
         Eject(gCdromDevice);
         return EXIT_FAILURE;
     }
+    else if(mbresult.releaseCount == 0)
+    {
+        LogErr("Only a CD Stub for discid=%s: Skipping rip\n"
+               "Please submit this disc to Musicbrainz: %s\n",
+               discId, discid_get_submission_url(disc));
+        Eject(gCdromDevice);
+        MbFree(&mbresult);
+        return EXIT_FAILURE;
+    }
 
     art_t *coverArt = x_calloc(sizeof(art_t), mbresult.releaseCount);
     bool   noArt = true;
